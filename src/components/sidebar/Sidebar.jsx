@@ -4,12 +4,12 @@ import './assets/Sidebar.scss'
 
 export default function Sidebar() {
   return (
-    <div className="sidebar">
+    <nav className="sidebar">
       <h2>Sidebar</h2>
       <ul>
         <li><Link to="/">Dashboard</Link></li>
         <li><Link to="/settings">Settings</Link></li>
       </ul>
-    </div>
+    </nav>
   );
 }

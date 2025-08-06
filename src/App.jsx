@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router"
 import Dashboard from './pages/Dashboard/Dashboard.jsx'
 import SettingPage from './pages/setting/Setting.jsx'
 import Sidebar from './components/sidebar/Sidebar.jsx'
+import Navbar from './components/navbar/Navbar.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <>
+      <Navbar />
       <Sidebar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
