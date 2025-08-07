@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route, Link } from "react-router"
+import Login from './pages/login/Login.jsx'
 import Dashboard from './pages/Dashboard/Dashboard.jsx'
 import SettingPage from './pages/setting/Setting.jsx'
 import Sidebar from './components/sidebar/Sidebar.jsx'
@@ -12,9 +13,10 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Sidebar />
+      {/* <Navbar />
+      <Sidebar /> */}
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/settings" element={<SettingPage />} />
       </Routes>
