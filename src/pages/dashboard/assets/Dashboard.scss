@@ -1,0 +1,10 @@
+// App.scss
+.app-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 200px; // bằng với width của sidebar
+  flex: 1;
+  padding: 20px;
+}
