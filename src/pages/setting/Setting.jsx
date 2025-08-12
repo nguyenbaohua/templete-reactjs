@@ -2,9 +2,14 @@
 
 export default function SettingPage() {
   return (
-    <div>
-      <h1>Setting Page</h1>
-      <p>This is the settings page of the application.</p>
-    </div>
+    <>
+     <div className="app-container">
+
+        <div className="main-content">
+          <h1>Setting page</h1>
+          
+        </div>
+      </div>
+    </>
   )
 }

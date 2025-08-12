@@ -1,38 +1,32 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
 import './assets/Login.scss'
+import api from '../../api/api'
+import { setCredentials, setUser } from '../../store/slices/authSlice'
 
 export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const navigate = useNavigate()
+  const dispatch = useDispatch()
 
 	const handleLogin = async (e) => {
 		e.preventDefault()
+
+		if (!email || !password) {
+			alert('Please enter both email and password')
+			return
+		}
+
 		try {
-			if (!email || !password) {
-				alert('Please enter both email and password')
-				return
-			}
-
-			const endpoint = 'http://127.0.0.1:3000/api/auth/login'
-			// https://fakestoreapi.com/auth/login , mor_2314 / 83r5^_
-			// localhost:3000/api/auth/login , admin@example.com / admin123
-
-			const response = await fetch(endpoint, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ email, password }),
-			})
-			if (!response.ok) throw new Error('Login failed')
-			const data = await response.json()
-			console.log('Login success:', data)
-			// Lưu token nếu cần: localStorage.setItem('token', data.token)
-			navigate('/')
-		} catch (error) {
-			console.error(error)
+			const res = await api.post('/auth/login', {email, password})
+			console.log(res)
+			dispatch(setCredentials({ token: res.data.data.token }));
+			dispatch(setUser({ ...res.data.data.user }));
+			navigate('/dashboard')
+		} catch (err) {
+			console.error(err.message)
 			alert('Login failed!')
 		}
 	}
