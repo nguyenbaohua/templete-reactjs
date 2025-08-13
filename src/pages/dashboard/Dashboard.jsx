@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import './assets/Dashboard.scss'
@@ -12,6 +12,8 @@ export default function Dashboard() {
   // const vehicles = useSelector(selectVehicles)
   const dispatch = useDispatch()
   const navigator = useNavigate()
+
+  const [isShowTable, setIsShowTable] = useState(false)
 
   const companies = [
     { id: '1', name: 'Company A' },
@@ -31,6 +33,7 @@ export default function Dashboard() {
   }
 
   const handleFetchVehicles = async () => {
+    setIsShowTable(true)
     try {
       const response = await api.post('/vehicles', { company_id: companyId, location_id: locationId })
       dispatch(setVehicles(response.data.data || []))
@@ -94,31 +97,34 @@ export default function Dashboard() {
           <button onClick={handleLogout}>Logout</button>
 
           {/* select company and location */}
-          <div style={{ margin: '24px 0' }}>
+          {!isShowTable &&(
+          <div className='select-company-location'>
             <label>
-              Company:
+              <span>Select Company:</span>
               <select onChange={e => setCompanyId(e.target.value)}>
                 {companies.map(c => (
                   <option key={c.id} value={c.id}>{c.name}</option>
                 ))}
               </select>
             </label>
-            <label style={{ marginLeft: 16 }}>
-              Location:
+            <label>
+              <span>Select Location:</span>
               <select onChange={e => setLocationId(e.target.value)}>
                 {locations.map(l => (
                   <option key={l.id} value={l.id}>{l.name}</option>
                 ))}
               </select>
             </label>
-            <button style={{ marginLeft: 16 }} onClick={handleFetchVehicles}>Fetch Vehicles</button>
+            <button onClick={handleFetchVehicles}>Fetch Vehicles</button>
           </div>
+          )}
 
           {/* table show vehicles */}
-          <table className="dashboard-table">
-            <thead>
-              <tr>
-                <th>ID</th>
+          {isShowTable && (
+              <table className="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
                 <th>Name</th>
                 <th>Type</th>
               </tr>
@@ -139,6 +145,7 @@ export default function Dashboard() {
               )}
             </tbody>
           </table>
+          )}
 
           {/* go to top page button */}
           <button className='goto-top-page-button' onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
