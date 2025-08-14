@@ -23,7 +23,7 @@ function App() {
       } */}
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/settings" element={<ProtectedRoute><SettingPage /></ProtectedRoute>} />
         <Route path="/todo-app" element={<TodoApp />} />
         <Route path="*" element={<p>404!</p>} />
