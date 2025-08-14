@@ -6,6 +6,7 @@ import { selectCurrentUser } from '../../store/slices/authSlice.js'
 import { selectVehicles } from '../../store/slices/vehiclesSlice.js';
 import { logout } from '../../store/slices/authSlice.js'
 import api from '../../api/api'
+import TruckIcon from '../../components/icons/TruckIcon.jsx';
 
 export default function Dashboard() {
   const [viewMode, setViewMode] = useState('table');
@@ -134,6 +135,9 @@ export default function Dashboard() {
                       boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
                     }}
                   >
+                    {/* <TruckIcon width={48} height={48} fill="#333" />*/}
+                    <TruckIcon /> 
+                    
                     <div><strong>ID:</strong> {v.id}</div>
                     <div><strong>Name:</strong> {v.name}</div>
                     <div><strong>Type:</strong> {v.type}</div>
